@@ -117,7 +117,7 @@ export default function RootLayout({
                     rel="noreferrer"
                     className="font-medium underline underline-offset-4"
                   >
-                    TechNova
+                    Al Hosn
                   </a>
                   . The source code is available on{" "}
                   <a
