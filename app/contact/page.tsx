@@ -44,10 +44,13 @@ export default function Contact() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    })
+    toast(
+      <div>
+        <strong>Message Sent!</strong>
+        <p>We'll get back to you as soon as possible.</p>
+      </div>,
+      { type: "success" }
+    )
     console.log(values)
   }
 

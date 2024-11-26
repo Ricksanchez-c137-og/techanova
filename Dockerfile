@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y curl git && apt-get clean
+RUN apt-get update && apt-get install -y curl git nodejs npm && apt-get clean
 
 RUN apt-get install -y nodejs && apt-get clean
 
