@@ -120,7 +120,7 @@ export default function Contact() {
           <h2 className="text-2xl font-semibold">Contact Information</h2>
           <p>Email: info@technova.com</p>
           <p>Phone: +1 (555) 123-4567</p>
-          <p>Address: 123 Tech Street, San Francisco, CA 94105</p>
+          <p>Address: 123 Tech Street, Abu Dhabi, UAE 94105</p>
           <h2 className="text-2xl font-semibold">Office Hours</h2>
           <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
           <p>Saturday - Sunday: Closed</p>
