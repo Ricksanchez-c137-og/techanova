@@ -1,5 +1,4 @@
-This project is done with NextJs 
+This project is built with NextJs 
 
-1. run `npm i --force` to install deps first 
-2. run `npm run dev` 
-3. navigate to localhost:3000 on your web-browser to view the website
+# To run this project use the docker file included. 
+
