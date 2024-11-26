@@ -27,13 +27,14 @@ export default function Home() {
         </Button>
       </section>
 
+      {/* Updated Carousel Items */}
       <Carousel className="w-full max-w-xs mx-auto">
         <CarouselContent>
-          {[1, 2, 3].map((_, index) => (
+          {["IT Infrastructure", "Cybersecurity", "AI Solutions"].map((service, index) => (
             <CarouselItem key={index}>
               <Card>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{`Service ${index + 1}`}</span>
+                  <span className="text-2xl font-semibold">{service}</span>
                 </CardContent>
               </Card>
             </CarouselItem>
