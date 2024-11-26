@@ -19,8 +19,6 @@ RUN npm install --force
 
 RUN npm run build
 
-COPY init.sql /docker-entrypoint-initdb.d/
-
 EXPOSE 80 3306
 
 CMD service mysql start && mysql -e "CREATE DATABASE IF NOT EXISTS techanova;" && npm start
