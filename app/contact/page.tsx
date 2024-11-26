@@ -47,7 +47,7 @@ export default function Contact() {
     toast(
       <div>
         <strong>Message Sent!</strong>
-        <p>We'll get back to you as soon as possible.</p>
+        <p>We will get back to you as soon as possible.</p>
       </div>,
       { type: "success" }
     )
