@@ -12,9 +12,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function Home() {
   const testimonials = [
-    { name: "John Doe", company: "Tech Corp", content: "TechNova transformed our IT infrastructure. Highly recommended!", avatar: "JD" },
-    { name: "Jane Smith", company: "Innovate Inc", content: "Their AI solutions have significantly improved our productivity.", avatar: "JS" },
-    { name: "Alex Johnson", company: "DataDrive", content: "TechNova's data analytics services provided invaluable insights for our business.", avatar: "AJ" },
+    { name: "John Doe", company: "Company A", content: "Al Hosn transformed our IT infrastructure. Highly recommended!", avatar: "JD" },
+    { name: "Jane Smith", company: "Company B", content: "Their AI solutions have significantly improved our productivity.", avatar: "JS" },
+    { name: "Alex Johnson", company: "Company C", content: "Al Hosn's data analytics services provided invaluable insights for our business.", avatar: "AJ" },
   ]
 
   return (
