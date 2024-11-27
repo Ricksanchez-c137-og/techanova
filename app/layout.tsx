@@ -15,7 +15,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'TechNova',
+  title: 'Al Hosn',
   description: 'Innovative IT Solutions for the Modern World',
 }
 
@@ -38,7 +38,7 @@ export default function RootLayout({
               <div className="mr-4 hidden md:flex">
                 <Link href="/" className="mr-6 flex items-center space-x-2">
                   <span className="hidden font-bold sm:inline-block">
-                    TechNova
+                    Al Hosn
                   </span>
                 </Link>
                 <nav className="flex items-center space-x-6 text-sm font-medium">

@@ -4,17 +4,17 @@ import { Button } from "@/components/ui/button"
 export default function Careers() {
   const jobOpenings = [
     { title: "Senior Software Engineer", department: "Engineering", location: "Remote" },
-    { title: "Data Scientist", department: "Analytics", location: "New York, NY" },
-    { title: "UX Designer", department: "Design", location: "San Francisco, CA" },
+    { title: "Data Scientist", department: "Analytics", location: "Abu Dhabi, UAE" },
+    { title: "UX Designer", department: "Design", location: "Cairo, Egypt " },
     { title: "Cloud Solutions Architect", department: "Infrastructure", location: "Remote" },
   ]
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold">Careers at TechNova</h1>
+      <h1 className="text-4xl font-bold">Careers at Al Hosn</h1>
       <p className="text-xl">Join our team of innovators and shape the future of technology.</p>
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Why TechNova?</h2>
+        <h2 className="text-2xl font-semibold">Why Al Hosn?</h2>
         <ul className="list-disc list-inside">
           <li>Innovative projects and cutting-edge technologies</li>
           <li>Collaborative and inclusive work environment</li>
