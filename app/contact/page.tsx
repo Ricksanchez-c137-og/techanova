@@ -43,15 +43,33 @@ export default function Contact() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    toast(
-      <div>
-        <strong>Message Sent!</strong>
-        <p>We will get back to you as soon as possible.</p>
-      </div>,
-      { type: "success" }
-    )
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        toast(
+          <div>
+            <strong>Message Sent!</strong>
+            <p>We will get back to you as soon as possible.</p>
+          </div>,
+          { type: "success" }
+        );
+        console.log("Form submitted successfully:", values);
+      } else {
+        toast("Error sending the message.", { type: "error" });
+        console.error("Error response from server.");
+      }
+    } catch (error) {
+      toast("Failed to send the message. Please try again later.", { type: "error" });
+      console.error("Error submitting the form:", error);
+    }
   }
 
   return (
@@ -118,8 +136,8 @@ export default function Contact() {
         </Form>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">Contact Information</h2>
-          <p>Email: info@technova.com</p>
-          <p>Phone: +1 (555) 123-4567</p>
+          <p>Email: info@alhosn.com</p>
+          <p>Phone: +971 (050) 123-4567</p>
           <p>Address: 123 Tech Street, Abu Dhabi, UAE 94105</p>
           <h2 className="text-2xl font-semibold">Office Hours</h2>
           <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
