@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="space-y-12">
       <section className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Welcome to TechNova</h1>
+        <h1 className="text-4xl font-bold">Welcome to Al Hosn</h1>
         <p className="text-xl">Innovative IT Solutions for the Modern World</p>
         <Button asChild>
           <Link href="/contact">Get Started</Link>
