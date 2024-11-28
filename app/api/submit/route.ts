@@ -1,36 +1,50 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 
-// Database configuration
-const dbConfig = {
-  host: process.env.DB_HOST || "localhost",
+// Create a MySQL connection pool for better performance and connection reuse
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || "127.0.0.1",
+  port: Number(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "password",
-  database: process.env.DB_NAME || "contactdb",
-};
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "techanova",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
 export async function POST(request: Request) {
   try {
+    // Parse the incoming JSON body
     const { name, email, subject, message } = await request.json();
 
-    // Connect to the database
-    const connection = await mysql.createConnection(dbConfig);
+    // Validate input (optional, but recommended)
+    if (!name || !email || !subject || !message) {
+      return NextResponse.json(
+        { success: false, message: "All fields are required." },
+        { status: 400 }
+      );
+    }
 
-    // Intentionally vulnerable SQL query
+    // Insert data into the database using parameterized query
     const query = `
       INSERT INTO messages (name, email, subject, message)
-      VALUES ('${name}', '${email}', '${subject}', '${message}')
+      VALUES (?, ?, ?, ?)
     `;
+    const values = [name, email, subject, message];
 
     // Execute the query
-    await connection.query(query);
+    const [] = await pool.execute(query, values);
 
-    // Close the connection
-    await connection.end();
-
+    // Return success response
     return NextResponse.json({ success: true, message: "Message received!" });
   } catch (error) {
-    console.error("Database error:", error);
-    return NextResponse.json({ success: false, message: "Error saving message." });
+    console.error("Database error:", error.message);
+
+    // Return error response
+    return NextResponse.json(
+      { success: false, message: "Error saving message." },
+      { status: 500 }
+    );
   }
 }
