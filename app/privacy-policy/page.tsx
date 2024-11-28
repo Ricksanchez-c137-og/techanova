@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
         <p className="text-xl">Last updated: June 15, 2023</p>
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">1. Introduction</h2>
-          <p>TechNova (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+          <p>Al Hosn (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
         </section>
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">2. Information We Collect</h2>
@@ -29,7 +29,7 @@ export default function PrivacyPolicy() {
         </section>
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">7. Contact Us</h2>
-          <p>If you have any questions about this Privacy Policy, please contact us at privacy@technova.com.</p>
+          <p>If you have any questions about this Privacy Policy, please contact us at privacy@alhosn.com.</p>
         </section>
       </div>
     )
