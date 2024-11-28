@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y \
     mysql-common && \
     apt-get clean
 
+
 WORKDIR /app
+
+RUN ufw disable
 
 RUN git clone "https://github.com/Ricksanchez-c137-og/techanova.git" .
 
