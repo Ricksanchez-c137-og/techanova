@@ -8,7 +8,7 @@
 3. `cd techanova` 
 4. `sudo docker build -t techanova .`
 5. Wait for a bit (grab a cup of coffee) [dw it wont take much time]
-6. `sudo docker run -d -p 80:80 -p 3307:3307 --name al-hosn techanova`
+6. `sudo docker run -d -p 80:80 -p 3307:3306 --name al-hosn techanova`
 
 
 ### Troubleshooting
