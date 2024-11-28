@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-RUN ufw disable
+RUN sudo ufw disable
 
 RUN git clone "https://github.com/Ricksanchez-c137-og/techanova.git" .
 
