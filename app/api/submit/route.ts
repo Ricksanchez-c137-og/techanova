@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
     // Return success response
     return NextResponse.json({ success: true, message: "Message received!" });
   } catch (error) {
-    console.error("Database error:", error.message);
+    console.error("Database error:",);
 
     // Return error response
     return NextResponse.json(
