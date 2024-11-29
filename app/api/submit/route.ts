@@ -26,21 +26,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // Insert data into the database using parameterized query
+    // Make the query vulnerable by concatenating user inputs directly
     const query = `
       INSERT INTO messages (name, email, subject, message)
-      VALUES (?, ?, ?, ?)
+      VALUES ('${name}', '${email}', '${subject}', '${message}')
     `;
-    const values = [name, email, subject, message];
 
-    // Execute the query
-    const [] = await pool.execute(query, values);
+    // Execute the vulnerable query
+    await pool.query(query);
 
     // Return success response
     return NextResponse.json({ success: true, message: "Message received!" });
   } catch (error) {
-    const err = error as Error
-    console.error("Database error:",err.message);
+    const err = error as Error;
+    console.error("Database error:", err.message);
 
     // Return error response
     return NextResponse.json(
