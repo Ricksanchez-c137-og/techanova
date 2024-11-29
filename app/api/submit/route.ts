@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     // Parse the incoming JSON body
     const { name, email, subject, message } = await request.json();
 
-    // Validate input (optional, but recommended)
+    // Validate input
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
@@ -26,14 +26,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Make the query vulnerable by concatenating user inputs directly
+    // Use parameterized queries to prevent SQL errors
     const query = `
       INSERT INTO messages (name, email, subject, message)
-      VALUES ('${name}', '${email}', '${subject}', '${message}')
+      VALUES (?, ?, ?, ?)
     `;
+    const values = [name, email, subject, message];
 
-    // Execute the vulnerable query
-    await pool.query(query);
+    // Execute the query
+    await pool.execute(query, values);
 
     // Return success response
     return NextResponse.json({ success: true, message: "Message received!" });

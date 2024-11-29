@@ -23,7 +23,7 @@ COPY database-init.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 80 3306
 
-CMD service mysql start && \
+CMD service mysql start && \ 
     mysql -u root -e "CREATE DATABASE IF NOT EXISTS techanova;" && \
     mysql -u root -e "CREATE USER IF NOT EXISTS 'alhosn'@'%' IDENTIFIED BY 'password123';" && \
     mysql -u root -e "GRANT ALL PRIVILEGES ON techanova.* TO 'alhosn'@'%'; FLUSH PRIVILEGES;" && \
