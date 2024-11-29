@@ -3,7 +3,6 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    ufw \ 
     curl \
     git \
     nodejs \
@@ -14,8 +13,6 @@ RUN apt-get update && apt-get install -y \
 
 
 WORKDIR /app
-
-RUN sudo ufw disable
 
 RUN git clone "https://github.com/Ricksanchez-c137-og/techanova.git" .
 
