@@ -28,9 +28,9 @@ export async function POST(request: Request) {
 
     // Use parameterized queries to prevent SQL errors
     const query = `
-    INSERT INTO messages (name, email, subject, message)
-    VALUES ('${name}', '${email}', '${subject}', '${message}')
-  `;
+  INSERT INTO messages (name, email, subject, message)
+  VALUES (${mysql.escape(name)}, ${mysql.escape(email)}, ${mysql.escape(subject)}, ${mysql.escape(message)})
+`;
     const values = [name, email, subject, message];
 
     // Execute the query
