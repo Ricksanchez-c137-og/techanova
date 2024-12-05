@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
     mysql-common && \
     apt-get clean
 
-
 WORKDIR /app
 
 RUN git clone "https://github.com/Ricksanchez-c137-og/techanova.git" .
@@ -23,9 +22,9 @@ COPY database-init.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 80 3306
 
-CMD service mysql start && \ 
-    mysql -u root -e "CREATE DATABASE IF NOT EXISTS techanova;" && \
+CMD service mysql start && \
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS contactdb;" && \
     mysql -u root -e "CREATE USER IF NOT EXISTS 'alhosn'@'%' IDENTIFIED BY 'password123';" && \
-    mysql -u root -e "GRANT ALL PRIVILEGES ON techanova.* TO 'alhosn'@'%'; FLUSH PRIVILEGES;" && \
-    mysql -u root techanova < /docker-entrypoint-initdb.d/database-init.sql && \
+    mysql -u root -e "GRANT ALL PRIVILEGES ON contactdb.* TO 'alhosn'@'%'; FLUSH PRIVILEGES;" && \
+    mysql -u root contactdb < /docker-entrypoint-initdb.d/database-init.sql && \
     npm start
