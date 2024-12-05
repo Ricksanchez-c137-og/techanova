@@ -2,13 +2,17 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Use a specific legacy version of MySQL
 RUN apt-get update && apt-get install -y \
     curl \
     git \
     nodejs \
-    npm \
-    mysql-server \
-    mysql-common && \
+    npm && \
+    apt-get install -y wget && \
+    wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb && \
+    dpkg -i mysql-apt-config_0.8.12-1_all.deb && \
+    apt-get update && \
+    apt-get install -y mysql-server=5.6* && \
     apt-get clean
 
 WORKDIR /app
