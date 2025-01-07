@@ -16,4 +16,4 @@ CREATE TABLE IF NOT EXISTS flags (
     flag VARCHAR(255) NOT NULL         
 );
 
-INSERT INTO flags (flag) VALUES ("Al-Hosn{sql_injection_success}");
+INSERT INTO flags (flag) VALUES ('Al-Hosn{sql_injection_success}');
