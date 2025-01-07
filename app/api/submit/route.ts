@@ -26,15 +26,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Use parameterized queries to prevent SQL errors
+    // Construct the SQL query with direct concatenation (vulnerable to SQL injection)
     const query = `
-  INSERT INTO messages (name, email, subject, message)
-  VALUES (${mysql.escape(name)}, ${mysql.escape(email)}, ${mysql.escape(subject)}, ${mysql.escape(message)})
-`;
-    const values = [name, email, subject, message];
+      INSERT INTO messages (name, email, subject, message)
+      VALUES ('${name}', '${email}', '${subject}', '${message}')
+    `;
 
     // Execute the query
-    await pool.execute(query, values);
+    await pool.query(query);
 
     // Return success response
     return NextResponse.json({ success: true, message: "Message received!" });
