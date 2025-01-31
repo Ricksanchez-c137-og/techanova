@@ -36,10 +36,10 @@ export default function Contact() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "test' -- ",  // Example SQL injection payload
+      name: "flan bin flan",  
       email: "test@test.com",
-      subject: "' OR '1'='1", // Another SQL injection attempt
-      message: "'; DROP TABLE messages; -- ", // Dangerous SQL query attempt
+      subject: "Subject", 
+      message: "Message ",
     },
   });
 
@@ -87,7 +87,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your Name (SQL Injection Allowed)" {...field} />
+                    <Input placeholder="Your Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,7 +113,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Subject</FormLabel>
                   <FormControl>
-                    <Input placeholder="Subject (SQL Injection Allowed)" {...field} />
+                    <Input placeholder="Subject" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,7 +126,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Your Message (SQL Injection Allowed)" {...field} />
+                    <Textarea placeholder="Your Message " {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
