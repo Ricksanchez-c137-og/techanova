@@ -2,6 +2,7 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install required packages
 RUN apt-get update && apt-get install -y \
     curl \
     git \
@@ -11,31 +12,36 @@ RUN apt-get update && apt-get install -y \
     mysql-common && \
     apt-get clean
 
-WORKDIR /app
+# Fix MySQL systemctl issue in Docker
+RUN ln -s /usr/bin/true /usr/local/bin/systemctl
 
+# Set up required MySQL directories and permissions
+RUN rm -rf /var/lib/mysql/* && \
+    mkdir -p /var/lib/mysql /var/run/mysqld /var/log/mysql && \
+    chown -R mysql:mysql /var/lib/mysql /var/run/mysqld /var/log/mysql && \
+    chmod 777 /var/run/mysqld
+
+# Clone repository
+WORKDIR /app
 RUN git clone "https://github.com/Ricksanchez-c137-og/techanova.git" .
 
+# Install and build Node.js application
 RUN npm install --force
 RUN npm run build
 
+# Copy SQL initialization file
 COPY database-init.sql /docker-entrypoint-initdb.d/
 
-RUN mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/run/mysqld && \
-    chown -R mysql:mysql /var/lib/mysql && \
-    chmod 777 /var/run/mysqld
-
-RUN mysqld --initialize-insecure --user=mysql
+# Initialize MySQL data directory
+RUN mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql || cat /var/log/mysql/error.log
 
 EXPOSE 80 3306
 
-CMD set -e \
-    && mysqld --user=mysql & \
-    sleep 10 \
-    && mysql -u root -e "CREATE DATABASE IF NOT EXISTS contactdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" \
-    && mysql -u root -e "CREATE USER IF NOT EXISTS 'alhosn'@'%' IDENTIFIED BY 'password123';" \
-    && mysql -u root -e "GRANT ALL PRIVILEGES ON contactdb.* TO 'alhosn'@'%' WITH GRANT OPTION;" \
-    && mysql -u root -e "FLUSH PRIVILEGES;" \
-    && mysql -u root contactdb < /docker-entrypoint-initdb.d/database-init.sql \
-    && tail -f /var/log/mysql/error.log & \
+# Start MySQL and initialize database
+CMD service mysql start && \
+    sleep 10 && \
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS contactdb;" && \
+    mysql -u root -e "CREATE USER IF NOT EXISTS 'alhosn'@'%' IDENTIFIED BY 'password123';" && \
+    mysql -u root -e "GRANT ALL PRIVILEGES ON contactdb.* TO 'alhosn'@'%'; FLUSH PRIVILEGES;" && \
+    mysql -u root contactdb < /docker-entrypoint-initdb.d/database-init.sql && \
     npm start

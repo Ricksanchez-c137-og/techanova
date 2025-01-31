@@ -36,12 +36,12 @@ export default function Contact() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
+      name: "test' -- ",  // Example SQL injection payload
+      email: "test@test.com",
+      subject: "' OR '1'='1", // Another SQL injection attempt
+      message: "'; DROP TABLE messages; -- ", // Dangerous SQL query attempt
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -53,6 +53,9 @@ export default function Contact() {
         body: JSON.stringify(values),
       });
 
+      const responseData = await response.json();
+      console.log("Server Response:", responseData); // Logs API response for debugging
+
       if (response.ok) {
         toast(
           <div>
@@ -61,10 +64,8 @@ export default function Contact() {
           </div>,
           { type: "success" }
         );
-        console.log("Form submitted successfully:", values);
       } else {
-        toast("Error sending the message.", { type: "error" });
-        console.error("Error response from server.");
+        toast(`Error: ${responseData.message}`, { type: "error" });
       }
     } catch (error) {
       toast("Failed to send the message. Please try again later.", { type: "error" });
@@ -86,7 +87,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your Name" {...field} />
+                    <Input placeholder="Your Name (SQL Injection Allowed)" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,7 +113,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Subject</FormLabel>
                   <FormControl>
-                    <Input placeholder="Subject" {...field} />
+                    <Input placeholder="Subject (SQL Injection Allowed)" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,7 +126,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Your Message" {...field} />
+                    <Textarea placeholder="Your Message (SQL Injection Allowed)" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
