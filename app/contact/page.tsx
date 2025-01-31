@@ -1,11 +1,11 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,16 +30,16 @@ const formSchema = z.object({
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
-})
+});
 
 export default function Contact() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "flan bin flan",  
-      email: "test@test.com",
-      subject: "Subject", 
-      message: "Message ",
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
     },
   });
 
@@ -54,7 +54,7 @@ export default function Contact() {
       });
 
       const responseData = await response.json();
-      console.log("Server Response:", responseData); // Logs API response for debugging
+      console.log("Server Response:", responseData);
 
       if (response.ok) {
         toast(
@@ -64,6 +64,11 @@ export default function Contact() {
           </div>,
           { type: "success" }
         );
+
+        // 🔥 If SQL Injection was detected, show an alert pop-up
+        if (responseData.injectionDetected && responseData.secretCode) {
+          alert(`🚀 SQL Injection Successful! Your secret code: ${responseData.secretCode}`);
+        }
       } else {
         toast(`Error: ${responseData.message}`, { type: "error" });
       }
@@ -126,7 +131,7 @@ export default function Contact() {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Your Message " {...field} />
+                    <Textarea placeholder="Your Message" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,16 +140,7 @@ export default function Contact() {
             <Button type="submit">Send Message</Button>
           </form>
         </Form>
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Contact Information</h2>
-          <p>Email: info@alhosn.com</p>
-          <p>Phone: +971 (050) 123-4567</p>
-          <p>Address: 123 Tech Street, Abu Dhabi, UAE 94105</p>
-          <h2 className="text-2xl font-semibold">Office Hours</h2>
-          <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-          <p>Saturday - Sunday: Closed</p>
-        </div>
       </div>
     </div>
-  )
+  );
 }

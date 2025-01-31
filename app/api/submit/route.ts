@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 
-//  MySQL connection with multipleStatements enabled (Allows SQL Injection)
+// 🚨 SQL Injection Vulnerable Connection
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "127.0.0.1",
   port: Number(process.env.DB_PORT) || 3306,
@@ -11,7 +11,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  multipleStatements: true, //Allows stacked SQL injection
+  multipleStatements: true, // 🚨 ALLOWS STACKED SQL INJECTION
 });
 
 export async function POST(request: Request) {
@@ -20,24 +20,46 @@ export async function POST(request: Request) {
     const forwarded = request.headers.get("x-forwarded-for");
     const ip = forwarded ? forwarded.split(",")[0].trim() : "127.0.0.1";
 
+    // 🚨 No Input Validation (Fully Vulnerable)
     const { name, email, subject, message, priority = "medium" } = await request.json();
 
+    // 🔥 Corrected Vulnerable SQL Query (Allows Injection)
     const query = `
       INSERT INTO messages (name, email, subject, message, ip_address, priority, status)
       VALUES ('${name}', '${email}', '${subject}', '${message}', '${ip}', '${priority}', 'pending');
     `;
 
-    console.log("Executing SQL Query:", query); 
-    // Execute the unsafe query
-    const [result] = await pool.query(query);
+    console.log("🔥 Executing SQL Query:", query);
+
+    // Execute the vulnerable query
+    await pool.query(query);
+
+    // 🚨 Allow SQL Injection via Stored Procedures
+    const procedureQuery = `
+      CALL validate_flag('${subject}');
+      CALL search_messages('${message}');
+    `;
+
+    await pool.query(procedureQuery);
+
+    // 🚨 Detect SQL Injection Success
+    const isInjection = /DROP TABLE|UPDATE users|DELETE FROM|SELECT \*/i.test(query + procedureQuery);
+
+    let randomNumber = null;
+    if (isInjection) {
+      randomNumber = Math.floor(1000 + Math.random() * 900000); // Generates 4-6 digit number
+      console.log("🚀 SQL Injection Detected! Generated Code:", randomNumber);
+    }
 
     return NextResponse.json({
       success: true,
       message: "Message received!",
-      data: result,
+      injectionDetected: isInjection,
+      secretCode: randomNumber,
     });
+
   } catch (error) {
-    console.error(" Database error:", error);
+    console.error("❌ Database error:", error);
     return NextResponse.json(
       { success: false, message: "An error occurred while processing your request." },
       { status: 500 }

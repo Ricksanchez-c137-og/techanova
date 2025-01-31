@@ -41,21 +41,29 @@ INSERT INTO flags (flag, points) VALUES
 ('662311', 350);
 
 DELIMITER //
+
+-- 🚨 Vulnerable SQL Injection Stored Procedure
 CREATE PROCEDURE validate_flag(IN flag_attempt VARCHAR(255))
 BEGIN
+    -- 🚨 Unsafe Dynamic SQL Execution
     SET @sql = CONCAT('SELECT id, points FROM flags WHERE flag = ''', flag_attempt, '''');
+
+    -- Execute dynamically
     PREPARE stmt FROM @sql;
     EXECUTE stmt;
     DEALLOCATE PREPARE stmt;
 END //
-DELIMITER ;
 
-DELIMITER //
+-- 🚨 SQL Injection Vulnerable Search Procedure
 CREATE PROCEDURE search_messages(IN search_term VARCHAR(255))
 BEGIN
+    -- 🚨 Directly injecting user input
     SET @sql = CONCAT('SELECT * FROM messages WHERE subject LIKE ''%', search_term, '%'' OR message LIKE ''%', search_term, '%''');
+
+    -- Execute unfiltered SQL query
     PREPARE stmt FROM @sql;
     EXECUTE stmt;
     DEALLOCATE PREPARE stmt;
 END //
+
 DELIMITER ;
