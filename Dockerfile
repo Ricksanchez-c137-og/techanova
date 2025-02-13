@@ -2,7 +2,6 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install required packages
 RUN apt-get update && apt-get install -y \
     curl \
     git \
@@ -12,10 +11,8 @@ RUN apt-get update && apt-get install -y \
     mysql-common && \
     apt-get clean
 
-# Fix MySQL systemctl issue in Docker
 RUN ln -s /usr/bin/true /usr/local/bin/systemctl
 
-# Set up required MySQL directories and permissions
 RUN rm -rf /var/lib/mysql/* && \
     mkdir -p /var/lib/mysql /var/run/mysqld /var/log/mysql && \
     chown -R mysql:mysql /var/lib/mysql /var/run/mysqld /var/log/mysql && \
