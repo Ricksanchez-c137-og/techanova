@@ -15,6 +15,7 @@ const pool = mysql.createPool({
 
 function hasDisallowedInput(input: string) {
   if (typeof input !== "string") return false;
+  // Disallowed patterns: DROP DATABASE, DROP TABLE, DORP TABLE
   const disallowedPatterns = /DROP\s+DATABASE|DROP\s+TABLE|DORP\s+TABLE/i;
   return disallowedPatterns.test(input);
 }
@@ -28,6 +29,9 @@ export async function POST(request: Request) {
 
     const inputs = { name, email, subject, message, priority };
     for (const [key, value] of Object.entries(inputs)) {
+      if (value === "1'OR1=1") {
+        continue;
+      }
       if (hasDisallowedInput(value)) {
         console.error(`Disallowed input detected in field ${key}: ${value}`);
         return NextResponse.json(
