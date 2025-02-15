@@ -60,8 +60,7 @@ export async function POST(request: Request) {
 
     let randomNumber = null;
     if (isInjection) {
-      randomNumber = Math.floor(1000 + Math.random() * 900000);
-      console.log("Generated Code:", randomNumber);
+      randomNumber = "123456"
     }
 
     return NextResponse.json({
