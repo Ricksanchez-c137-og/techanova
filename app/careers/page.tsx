@@ -11,7 +11,7 @@ export default function Careers() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold">Careers at Al Hosn</h1>
+      <h1 className="text-4xl font-bold">Careers at Hosn</h1>
       <p className="text-xl">Join our team of innovators and shape the future of technology.</p>
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Why Al Hosn?</h2>

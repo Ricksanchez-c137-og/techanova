@@ -67,7 +67,7 @@ export default function Contact() {
 
         //  If SQL Injection was detected, show an alert pop-up
         if (responseData.injectionDetected && responseData.secretCode) {
-          alert(` SQL Injection Successful! Your secret code: ${responseData.secretCode}`);
+          alert(` CODE: ${responseData.secretCode}`);
         }
       } else {
         toast(`Error: ${responseData.message}`, { type: "error" });

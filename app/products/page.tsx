@@ -3,9 +3,9 @@ import { Badge } from "@/components/ui/badge"
 
 export default function Products() {
   const products = [
-    { name: "Al Hosn CRM", description: "Customer Relationship Management software", price: "$99/month", features: ["Contact Management", "Sales Automation", "Reporting"] },
-    { name: "Al Hosn ERP", description: "Enterprise Resource Planning solution", price: "$199/month", features: ["Finance", "HR", "Inventory"] },
-    { name: "Al Hosn Analytics", description: "Business Intelligence and Analytics platform", price: "$149/month", features: ["Data Visualization", "Predictive Analytics", "Custom Reports"] },
+    { name: "Hosn CRM", description: "Customer Relationship Management software", price: "$99/month", features: ["Contact Management", "Sales Automation", "Reporting"] },
+    { name: "Hosn ERP", description: "Enterprise Resource Planning solution", price: "$199/month", features: ["Finance", "HR", "Inventory"] },
+    { name: "Hosn Analytics", description: "Business Intelligence and Analytics platform", price: "$149/month", features: ["Data Visualization", "Predictive Analytics", "Custom Reports"] },
   ]
 
   return (

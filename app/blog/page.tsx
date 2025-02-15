@@ -11,7 +11,7 @@ export default function Blog() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold">Al Hosn Blog</h1>
+      <h1 className="text-4xl font-bold">Hosn Blog</h1>
       <p className="text-xl">Stay updated with the latest in technology and IT solutions.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {blogPosts.map((post, index) => (

@@ -12,15 +12,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function Home() {
   const testimonials = [
-    { name: "John Doe", company: "Company A", content: "Al Hosn transformed our IT infrastructure. Highly recommended!", avatar: "JD" },
+    { name: "John Doe", company: "Company A", content: "Hosn transformed our IT infrastructure. Highly recommended!", avatar: "JD" },
     { name: "Jane Smith", company: "Company B", content: "Their AI solutions have significantly improved our productivity.", avatar: "JS" },
-    { name: "Alex Johnson", company: "Company C", content: "Al Hosn's data analytics services provided invaluable insights for our business.", avatar: "AJ" },
+    { name: "Alex Johnson", company: "Company C", content: "Hosn's data analytics services provided invaluable insights for our business.", avatar: "AJ" },
   ]
 
   return (
     <div className="space-y-12">
       <section className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Welcome to Al Hosn</h1>
+        <h1 className="text-4xl font-bold">Welcome to Hosn</h1>
         <p className="text-xl">Innovative IT Solutions for the Modern World</p>
         <Button asChild>
           <Link href="/contact">Get Started</Link>
