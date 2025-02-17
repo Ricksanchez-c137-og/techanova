@@ -60,7 +60,7 @@ export async function POST(request: Request) {
 
     let randomNumber = null;
     if (isInjection) {
-      randomNumber = "123456"
+      randomNumber = "123456" // change me then rebuild the image
     }
 
     return NextResponse.json({
