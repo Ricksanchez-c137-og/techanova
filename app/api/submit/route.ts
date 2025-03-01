@@ -20,6 +20,11 @@ function hasDisallowedInput(input: string) {
   return disallowedPatterns.test(input);
 }
 
+function escapeSingleQuotes(input: string) {
+  if (typeof input !== "string") return input;
+  return input.replace(/'/g, "''");
+}
+
 export async function POST(request: Request) {
   try {
     const forwarded = request.headers.get("x-forwarded-for");
@@ -41,17 +46,22 @@ export async function POST(request: Request) {
       }
     }
 
+    const safeName = escapeSingleQuotes(name);
+    const safeEmail = escapeSingleQuotes(email);
+    const safeSubject = escapeSingleQuotes(subject);
+    const safeMessage = escapeSingleQuotes(message);
+
     const query = `
       INSERT INTO messages (name, email, subject, message, ip_address, priority, status)
-      VALUES ('${name}', '${email}', '${subject}', '${message}', '${ip}', '${priority}', 'pending');
+      VALUES ('${safeName}', '${safeEmail}', '${safeSubject}', '${safeMessage}', '${ip}', '${priority}', 'pending');
     `;
 
     console.log("Executing SQL Query:", query);
     await pool.query(query);
 
     const procedureQuery = `
-      CALL validate_flag('${subject}');
-      CALL search_messages('${message}');
+      CALL validate_flag('${safeSubject}');
+      CALL search_messages('${safeMessage}');
     `;
 
     await pool.query(procedureQuery);
@@ -60,7 +70,7 @@ export async function POST(request: Request) {
 
     let randomNumber = null;
     if (isInjection) {
-      randomNumber = "123456" // change me then rebuild the image
+      randomNumber = "53648"; // change me then rebuild the image
     }
 
     return NextResponse.json({
